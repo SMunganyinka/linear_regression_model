@@ -1,0 +1,26 @@
+# Data files (too large for GitHub)
+*.csv
+*.zip
+
+# Machine learning models (too large for GitHub)
+*.pkl
+*.joblib
+
+# Python cache
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Environment
+.venv/
+venv/
+env/
+
+# Images saved to disk (they are already in notebook outputs)
+*.png
+*.jpg
+*.jpeg
+
+# OS files
+.DS_Store
+Thumbs.db
