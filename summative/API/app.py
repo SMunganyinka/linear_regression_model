@@ -41,7 +41,7 @@ app.add_middleware(
         "http://localhost:3000",
         "http://localhost:8000",
         "http://10.0.2.2:8000", 
-        # Add your actual Render/Flutter URL here when deploying
+        "https://student-predictor-api.onrender.com"
     ],
     
     # allow_credentials: Set to True to support cookies and HTTP authentication 
