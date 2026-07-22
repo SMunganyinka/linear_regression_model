@@ -139,7 +139,7 @@ def run_retrain_pipeline(new_records: List[RetrainRecord]):
     joblib.dump(new_scaler, SCALER_PATH)
     
     # 7. Force API to reload new model on next prediction
-    import model as model_module
+    from . import model as model_module
     model_module._model = None
     model_module._scaler = None
     model_module._metadata = None

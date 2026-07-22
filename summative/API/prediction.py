@@ -9,7 +9,8 @@ from pydantic import BaseModel, Field
 from fastapi import APIRouter, HTTPException
 
 # Import our custom preprocessing and prediction function
-import model
+
+from . import model
 
 # ---------------------------------------------------------------------------
 # 1. PYDANTIC MODELS (Data Validation)

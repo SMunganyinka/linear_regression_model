@@ -9,8 +9,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 # Import the routers from our other files
-from prediction import router as prediction_router
-from retrain import router as retrain_router
+from .prediction import router as prediction_router
+from .retrain import router as retrain_router
 
 # ---------------------------------------------------------------------------
 # 1. INITIALIZE FASTAPI APP
