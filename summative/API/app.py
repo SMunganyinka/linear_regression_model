@@ -36,7 +36,7 @@ app.add_middleware(
     # allow_origins: A strict whitelist of domains permitted to call the API.
     # - "http://localhost:3000": Allows local frontend development (e.g., React/Flutter Web).
     # - "http://10.0.2.2:8000": Allows Android emulators to reach the host machine's localhost.
-    # - "https://yourapp.onrender.com": Placeholder for your deployed frontend URL.
+    
     allow_origins=[
         "http://localhost:3000",
         "http://localhost:8000",

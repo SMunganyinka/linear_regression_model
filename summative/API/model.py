@@ -1,7 +1,7 @@
 """
 model.py
 ========
-Handles loading the trained model artifacts and replicating the exact
+Handles loading the trained model artifacts and replicates the exact
 preprocessing pipeline from the Jupyter notebook for single predictions.
 """
 
@@ -37,7 +37,6 @@ INTERNET_ORDER = {"Poor": 0, "Average": 1, "Good": 2}
 def load_artifacts():
     """
     Lazily loads the model, scaler, and metadata from disk.
-    Uses a global cache so we only load them once when the API starts.
     """
     global _model, _scaler, _metadata
     if _model is None:
@@ -50,15 +49,14 @@ def load_artifacts():
 
 def preprocess_single(student_data: dict) -> pd.DataFrame:
     """
-    Transforms a raw dictionary (from the Flutter app or Swagger UI)
-    into a scaled DataFrame that perfectly matches the training features.
+    Transforms a raw dictionary into a scaled DataFrame that perfectly matches training features.
     """
     _, scaler, metadata = load_artifacts()
     sdf = pd.DataFrame([student_data])
 
-    # 1. Handle missing parental education (same logic as notebook)
+    # 1. Handle missing parental education
     val = sdf["parental_education_level"].iloc[0]
-    if pd.isnull(val) or str(val).strip() == "":
+    if pd.isnull(val) or str(val).strip() == "" or str(val).strip().lower() == "nan":
         sdf["parental_education_level"] = "None"
 
     # 2. Binary mappings
@@ -70,24 +68,26 @@ def preprocess_single(student_data: dict) -> pd.DataFrame:
     sdf["parental_education_level"] = sdf["parental_education_level"].map(PARENTAL_ORDER)
     sdf["internet_quality"] = sdf["internet_quality"].map(INTERNET_ORDER)
 
-    # 4. One-Hot gender (drop_first=True means we only keep gender_Male)
+    # 4. One-Hot gender (drop_first=True drops 'Female', leaving 'Male' and 'Other')
     sdf = pd.get_dummies(sdf, columns=["gender"], drop_first=True)
+    
+    # SAFETY: Ensure both expected dummy columns exist, even if the user is Male/Female/Other
     if "gender_Male" not in sdf.columns:
         sdf["gender_Male"] = 0
     if "gender_Other" not in sdf.columns:
         sdf["gender_Other"] = 0
+        
     sdf["gender_Male"] = sdf["gender_Male"].astype(int)
     sdf["gender_Other"] = sdf["gender_Other"].astype(int)
 
-    # 5. Feature Engineering
+    # 5. Feature Engineering (CRITICAL: Must match notebook exactly)
     sdf["total_screen_time"] = sdf["social_media_hours"] + sdf["netflix_hours"]
     sdf["study_efficiency"] = sdf["study_hours_per_day"] / (1 + sdf["total_screen_time"])
 
-        # 6. Wellness Score (Calculate bounds directly from CSV to avoid metadata mismatches)
+    # 6. Wellness Score (Calculate bounds directly from CSV)
     CSV_PATH = os.path.join(ARTIFACT_DIR, "student_habits_performance.csv")
     df_orig = pd.read_csv(CSV_PATH)
     
-    # Encode the original data to get numeric values for min/max
     diet_ord = {"Poor": 0, "Fair": 1, "Good": 2, "Excellent": 3}
     df_orig["diet_quality"] = df_orig["diet_quality"].map(diet_ord).fillna(0)
     
