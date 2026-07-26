@@ -8,7 +8,10 @@
     "sleep_hours",
     "exercise_frequency",
     "mental_health_rating",
-    "gender_Other"
+    "gender_Other",
+    "total_screen_time",
+    "study_efficiency",
+    "wellness_score"
   ],
   "categorical_cols": [
     "extracurricular_participation",
@@ -33,7 +36,10 @@
     "mental_health_rating",
     "extracurricular_participation",
     "gender_Male",
-    "gender_Other"
+    "gender_Other",
+    "total_screen_time",
+    "study_efficiency",
+    "wellness_score"
   ],
   "target": "exam_score"
 }
