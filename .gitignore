@@ -1,10 +1,10 @@
-# Data files (too large for GitHub)
-*.csv
-*.zip
+# # Data files (too large for GitHub)
+# *.csv
+# *.zip
 
-# Machine learning models (too large for GitHub)
-*.pkl
-*.joblib
+# # Machine learning models (too large for GitHub)
+# *.pkl
+# *.joblib
 
 # Python cache
 __pycache__/
@@ -24,3 +24,12 @@ env/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+**/packages/pubspec.lock
+**/build/
