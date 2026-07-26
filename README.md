@@ -1,4 +1,4 @@
-# AcademIQ – Student Exam Score Predictor
+# FlutterApp – Student Exam Score Predictor
 
 ## Mission & Problem Description
 
