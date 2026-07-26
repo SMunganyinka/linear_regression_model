@@ -18,6 +18,7 @@ env/
 
 # Images saved to disk (they are already in notebook outputs)
 
+*.png
 *.jpg
 *.jpeg
 
@@ -33,3 +34,8 @@ Thumbs.db
 .flutter-plugins-dependencies
 **/packages/pubspec.lock
 **/build/
+
+# Allow only README images
+!images/
+!images/correlation_heatmap.png
+!images/feature_importance.png
