@@ -17,7 +17,7 @@ venv/
 env/
 
 # Images saved to disk (they are already in notebook outputs)
-*.png
+
 *.jpg
 *.jpeg
 
